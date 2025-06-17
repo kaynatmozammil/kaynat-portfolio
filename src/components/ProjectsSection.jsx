@@ -1,18 +1,27 @@
 import { useState } from "react"
-import { ExternalLink, Github, ArrowRight, ArrowDown } from "lucide-react"
+import { ExternalLink, Github, ArrowDown } from "lucide-react"
 
 const projects = [
   {
     id: 1,
-    title: "Find Movies",
-    description: "A sleek and responsive movie discovery web app.",
-    image: "./projects/01_projectMovie.png",
-    tags: ["React", "TailwindCSS", "(TMDB) API"],
-    demoUrl: "https://moviesapp-ruby.vercel.app/",
-    githubUrl: "https://github.com/kaynatmozammil/movieApp",
+    title: "Movies Recommended System",
+    description: "A web app offering movie suggestions using Flask and Pandas.",
+    image: "./projects/05_projectMRS.png",
+    tags: ["Flask", "Pandas"],
+    demoUrl: "#",
+    githubUrl: "https://github.com/kaynatmozammil/Book-Recommendation-System",
   },
   {
     id: 2,
+    title: "Book Recommended System",
+    description: "A web app offering book suggestions using Flask and Pandas.",
+    image: "./projects/04_projectBRS.jpg",
+    tags: ["Flask", "Pandas"],
+    demoUrl: "#",
+    githubUrl: "https://github.com/kaynatmozammil/Book-Recommendation-System",
+  },
+  {
+    id: 3,
     title: "Online Examination System",
     description: "A web development project that provides online examination.",
     image: "./projects/02_projectOES.png",
@@ -21,7 +30,7 @@ const projects = [
     githubUrl: "https://github.com/kaynatmozammil/Online-Examination-System",
   },
   {
-    id: 3,
+    id: 4,
     title: "Weather App",
     description: "A Weather App that gives the weather information worldwide.",
     image: "./projects/03_projectWheaterApp.png",
@@ -30,35 +39,33 @@ const projects = [
     githubUrl: "https://github.com/kaynatmozammil/weatherApp",
   },
   {
-    id: 4,
-    title: "Book Recommended System",
-    description: "A web app offering book suggestions using Flask and Pandas.",
-    image: "./projects/04_projectBRS.jpg",
-    tags: ["Flask", "Pandas"],
-    demoUrl: "#",
-    githubUrl: "https://github.com/kaynatmozammil/Book-Recommendation-System",
-  },
-
-   {
     id: 5,
-    title: "Movies Recommended System",
-    description: "A web app offering movie suggestions using Flask and Pandas.",
-    image: "./projects/05_projectMRS.png",
-    tags: ["Flask", "Pandas"],
-    demoUrl: "#",
-    githubUrl: "https://github.com/kaynatmozammil/Book-Recommendation-System",
+    title: "Find Movies",
+    description: "A sleek and responsive movie discovery web app.",
+    image: "./projects/01_projectMovie.png",
+    tags: ["React", "TailwindCSS", "(TMDB) API"],
+    demoUrl: "https://moviesapp-ruby.vercel.app/",
+    githubUrl: "https://github.com/kaynatmozammil/movieApp",
   },
-  // Add more projects as needed
+  {
+    id: 6,
+    title: "Personal Portfolio",
+    description: "A modern and responsive developer portfolio showcasing projects, skills, and resume.",
+    image: "./projects/06_projectPortfolio.png",
+    tags: ["React", "TailwindCSS", "Lucide-React", "Vite"],
+    demoUrl: "https://kaynatmozammil.vercel.app/",
+    githubUrl: "https://github.com/kaynatmozammil/kaynat-portfolio",
+  }
 
 ]
 
 export const ProjectsSection = () => {
   const [visibleCount, setVisibleCount] = useState(3)
-  const loadStep = 3 // how many to show each time
+  const loadStep = 3
 
   const handleShowMore = () => {
     if (visibleCount < projects.length) {
-      setVisibleCount(prev => Math.min(prev + loadStep, projects.length))
+      setVisibleCount((prev) => Math.min(prev + loadStep, projects.length))
     } else {
       window.open("https://github.com/kaynatmozammil", "_blank")
     }
@@ -76,58 +83,61 @@ export const ProjectsSection = () => {
         </p>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {projects.slice(0, visibleCount).map((project) => (
-            <div
-              key={project.id}
-              className="group bg-card rounded-lg overflow-hidden shadow-xs card-hover"
-            >
-              <div className="h-48 overflow-hidden">
-                <img
-                  src={project.image}
-                  alt={project.title}
-                  className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
-                />
-              </div>
-
-              <div className="p-6">
-                <div className="flex flex-wrap gap-2 mb-4">
-                  {project.tags.map((tag, i) => (
-                    <span
-                      key={i}
-                      className="px-2 py-1 text-xs font-medium border rounded-full bg-primary/10 text-secondary-foreground"
-                    >
-                      {tag}
-                    </span>
-                  ))}
+          {[...projects]
+            .sort((a, b) => b.id - a.id)
+            .slice(0, visibleCount)
+            .map((project) => (
+              <div
+                key={project.id}
+                className="group bg-card rounded-lg overflow-hidden shadow-xs card-hover"
+              >
+                <div className="h-48 overflow-hidden">
+                  <img
+                    src={project.image}
+                    alt={project.title}
+                    className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                  />
                 </div>
 
-                <h3 className="text-xl font-semibold mb-1">{project.title}</h3>
-                <p className="text-muted-foreground text-sm mb-4">
-                  {project.description}
-                </p>
-                <div className="flex justify-between items-center">
-                  <div className="flex space-x-3">
-                    <a
-                      href={project.demoUrl}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="text-foreground/80 hover:text-primary transition-colors duration-300"
-                    >
-                      <ExternalLink size={20} />
-                    </a>
-                    <a
-                      href={project.githubUrl}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="text-foreground/80 hover:text-primary transition-colors duration-300"
-                    >
-                      <Github size={20} />
-                    </a>
+                <div className="p-6">
+                  <div className="flex flex-wrap gap-2 mb-4">
+                    {project.tags.map((tag, i) => (
+                      <span
+                        key={i}
+                        className="px-2 py-1 text-xs font-medium border rounded-full bg-primary/10 text-secondary-foreground"
+                      >
+                        {tag}
+                      </span>
+                    ))}
+                  </div>
+
+                  <h3 className="text-xl font-semibold mb-1">{project.title}</h3>
+                  <p className="text-muted-foreground text-sm mb-4">
+                    {project.description}
+                  </p>
+                  <div className="flex justify-between items-center">
+                    <div className="flex space-x-3">
+                      <a
+                        href={project.demoUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-foreground/80 hover:text-primary transition-colors duration-300"
+                      >
+                        <ExternalLink size={20} />
+                      </a>
+                      <a
+                        href={project.githubUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-foreground/80 hover:text-primary transition-colors duration-300"
+                      >
+                        <Github size={20} />
+                      </a>
+                    </div>
                   </div>
                 </div>
               </div>
-            </div>
-          ))}
+            ))}
         </div>
 
         <div className="text-center mt-12">
