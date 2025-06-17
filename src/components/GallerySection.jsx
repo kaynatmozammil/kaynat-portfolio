@@ -11,11 +11,8 @@ export const GallerySection = () => {
   const [error, setError] = useState("");
   const [timeLeft, setTimeLeft] = useState(null);
 
-  
   const correctPassword = import.meta.env.VITE_GALLERY_PASSWORD;
 
-
-  // Check for stored access
   useEffect(() => {
     try {
       const stored = JSON.parse(localStorage.getItem("galleryAccess") || "{}");
@@ -30,7 +27,6 @@ export const GallerySection = () => {
     }
   }, []);
 
-  // Timer countdown
   useEffect(() => {
     if (!authorized || timeLeft === null) return;
 
@@ -49,7 +45,6 @@ export const GallerySection = () => {
     return () => clearInterval(interval);
   }, [authorized, timeLeft]);
 
-  // Load gallery if authorized
   useEffect(() => {
     if (!authorized) return;
 
@@ -112,8 +107,8 @@ export const GallerySection = () => {
   };
 
   return (
-    <section id="gallery" className="my-20 px-6 md:px-20">
-      <h2 className="text-3xl md:text-4xl font-bold mb-4 text-center">
+    <section id="gallery" className="scroll-mt-28 my-20 px-6 md:px-20">
+      <h2 className="text-3xl md:text-4xl font-bold mb-4 text-center ">
         My <span className="text-primary">Gallery</span>
       </h2>
 
@@ -206,7 +201,6 @@ export const GallerySection = () => {
               )}
             </div>
           )}
-
         </>
       )}
     </section>
